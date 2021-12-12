@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {Component }from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { makeAutoObservable } from 'mobx';
+import { observer } from "mobx-react-lite";
+
+
+class Timer {
+    secondsPassed = 0
+
+    constructor() {
+        makeAutoObservable(this)
+    }
+
+    increaseTimer() {
+        this.secondsPassed += 1
+    }
+}
+
+const myTimer = new Timer();
+const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>);
+
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <TimerView timer={myTimer} />,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+setInterval(() => {
+    myTimer.increaseTimer()
+}, 1000)
