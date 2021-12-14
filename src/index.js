@@ -1,32 +1,47 @@
-import React, {Component }from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
 import { makeAutoObservable } from 'mobx';
-import { observer } from "mobx-react-lite";
+import { observer } from 'mobx-react';
 
-
-class Timer {
-    secondsPassed = 0
+class UserNickName {
+    firstName = 'Vika';
+    age = 30;
 
     constructor() {
         makeAutoObservable(this)
-    }
+    };
 
-    increaseTimer() {
-        this.secondsPassed += 1
+     increment = function () {
+         this.age += 1
+     };
+
+     decrement = function() {
+        this.age-=1
     }
 }
 
-const myTimer = new Timer();
-const TimerView = observer(({ timer }) => <span>Seconds passed: {timer.secondsPassed}</span>);
+
+@observer class Counter extends Component {
+
+  handleIncrement = () => { this.props.store.increment() };
+  handleDecrement = () => { this.props.store.decrement() };
+
+  render() {
+    return (
+      <div className="App"> 
+        <h1>{this.props.store.firstName}</h1>
+        <h1>{this.props.store.age}</h1>
+        <button onClick={this.handleDecrement}>-1</button>
+        <button onClick={this.handleIncrement}>+1</button>
+      </div>
+    );
+  }
+}
+const MyStore = new UserNickName();
+
+ReactDOM.render(<Counter store={MyStore } />, document.getElementById('root'));
 
 
 
-ReactDOM.render(
-    <TimerView timer={myTimer} />,
-  document.getElementById('root')
-);
-
-setInterval(() => {
-    myTimer.increaseTimer()
-}, 1000)
