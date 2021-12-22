@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
-import App from './containers/App';
 import Login from "./containers/Login";
 import UserProvider, { UserConsumer } from './context/UserContext';
+const App = React.lazy(()=> import('./containers/App'));
 
 const Root =() => {
     return (
      <UserProvider>
      <UserConsumer>
-       {
-        ({ user, handleLogin }) =>
-           user ? <App /> : <Login handleLogin={ handleLogin}/>
-       }
+      {({ user, handleLogin }) =>
+          user ? (
+            <Suspense fallback={<div>Loading...</div>}>
+              <App />
+            </Suspense>
+          ) : (
+            <Login handleLogin={handleLogin} />
+          )
+      }
      </UserConsumer>
    </UserProvider>
     )
