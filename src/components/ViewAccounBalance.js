@@ -1,8 +1,8 @@
 import { memo } from 'react';
-
 import { UserConsumer } from "../context/UserContext";
 
 const ViewAccountBalance = memo(({ showBalance, displayBalance }) => {
+ 
   return (
     <>
       {!showBalance ? (

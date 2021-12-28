@@ -3,6 +3,8 @@ import User from '../components/User';
 import ViewAccountBalance from '../components/ViewAccounBalance';
 import WithdrawButton from '../components/WithdrowButton';
 
+
+
 class App extends PureComponent {
   state = {
     showBalance: false
@@ -12,6 +14,7 @@ class App extends PureComponent {
     this.setState({showBalance: true})
   }
 
+  
 
   render() {
     const { showBalance } = this.state;
@@ -25,6 +28,9 @@ class App extends PureComponent {
           <WithdrawButton amount={1000}/>
           <WithdrawButton amount={5000}/>
         </section>
+
+        
+
       </div>
     );
   }
