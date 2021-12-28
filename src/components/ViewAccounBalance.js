@@ -14,7 +14,7 @@ const ViewAccountBalance = memo(({ showBalance, displayBalance }) => {
       </div>
       ) : (
           <UserConsumer>
-            {({ user }) => (
+            {({ user}) => (
               <div>
                 <p>Total amount:</p>
                 <span>{user.totalAmount}</span>

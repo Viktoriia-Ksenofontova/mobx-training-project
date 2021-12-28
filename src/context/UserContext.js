@@ -17,24 +17,26 @@ class UserProvider extends Component{
 
     this.setState({
       user: {
-        name: "Vika",
+        ...JSON.parse(window.sessionStorage.getItem('user')),
         totalAmount: 250070
       }
     })
+   
   };
 
   handleWithdrawal = (e) => {
-    const { name, totalAmount } = this.state.user;
+    const { userName, totalAmount } = this.state.user;
 
     const withdrawalAmount = e.target.dataset.amount;
 
     this.setState({
       user: {
-        name,
+        userName,
         totalAmount: totalAmount - withdrawalAmount
       }
     })
   };
+
 
   render() {
      return (

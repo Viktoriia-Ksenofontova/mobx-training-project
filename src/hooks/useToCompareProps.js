@@ -8,7 +8,7 @@ function useToCompareProps(value) {
   useEffect(() => {
     prevRef.current = curRef.current;
     curRef.current = value;
-  });
+  },[value]);
   console.log("prev:", prevRef, "cur:", curRef);
  
   if (prevRef.current!==curRef.current) {

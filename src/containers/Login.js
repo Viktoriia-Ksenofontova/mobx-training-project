@@ -1,19 +1,18 @@
-import { Component } from 'react';
+import { useState } from 'react';
+import useSessionStorage from "../hooks/useSessionStorage";
 
-class Login extends Component {
-  state = {};
+const Login = ({ handleLogin }) => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  
+  useSessionStorage("user", { userName });
 
-  handleFormInput = e => {
-    const { name, value } = e.target;
-
-    this.setState({
-      [name]: [value]
-    })
+  const handleNameInputChange = e => {
+    setUserName(e.target.value);
   };
-
-  render() {
-    const { userName = "", password = "" } = this.state;
-    const { handleLogin } = this.props;
+  const handlePasswordInputChange = e => {
+    setPassword(e.target.value);
+  };
 
     return (
       <form onSubmit={handleLogin}>
@@ -23,7 +22,7 @@ class Login extends Component {
           name='userName'
           type="text"
           value={userName}
-          onChange={this.handleFormInput}
+          onChange={handleNameInputChange}
           required
         />
 
@@ -33,14 +32,13 @@ class Login extends Component {
           name="password"
           type="password"
           value={password}
-          onChange={this.handleFormInput}
+          onChange={handlePasswordInputChange}
           required
         />
 
         <button type="submit">Login</button>
       </form>
     )
-  };
 
 };
 
